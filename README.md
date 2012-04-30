@@ -15,8 +15,8 @@ developers to create the form views just as they do with any other markup.
 
  - Attribute  `DOM element attributes that can be easily attached to elements`
  - Element    `Represent the parts of a form, from a simple text input to the form itself`
- - Validator  `Check the element value`
- - Filter     `Modify the element value before validation`
+ - Filter     `Modify the element value on set`
+ - Validator  `Check the element value and handle error messages`
 
 ----------
 
