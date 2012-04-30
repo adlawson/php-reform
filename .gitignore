@@ -1,0 +1,6 @@
+
+# Unit testing configuration
+phpunit.xml
+
+# Build reports
+build/
