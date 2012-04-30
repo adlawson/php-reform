@@ -8,6 +8,9 @@ These simple rules allow both frontend and backend developers complete freedom a
  2. Intuitive to use by both backend and frontend developers
  3. Clean, easy to follow code with no hidden "magic"
 
+The framework comes with basic views for rendering forms and individual elements, but the focus is on allowing frontend
+developers to create the form views just as they do with any other markup.
+
 ###Core concepts
 
  - Attribute  `DOM element attributes that can be easily attached to elements`
