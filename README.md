@@ -10,8 +10,8 @@ These simple rules allow both frontend and backend developers complete freedom a
 
 ###Core concepts
 
+ - Attribute  `DOM element attributes that can be easily attached to elements`
  - Element    `Represent the parts of a form, from a simple text input to the form itself`
- - Decorator  `Provide element attachments, such as a label or description`
  - Validator  `Check the element value`
  - Filter     `Modify the element value before validation`
 
