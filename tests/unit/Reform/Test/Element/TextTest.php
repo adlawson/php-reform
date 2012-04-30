@@ -185,6 +185,16 @@ class TextTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Reform\Element\Text::getAttributes
+     */
+    public function testGetAttributes()
+    {
+        $element = new Element\Text( 'element_name' );
+
+        $this->assertInstanceOf( 'Traversable', $element->getAttributes() );
+    }
+
+    /**
      * @covers Reform\Element\Text::getDecorators
      */
     public function testGetDecorators()
