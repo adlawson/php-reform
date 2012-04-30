@@ -19,6 +19,12 @@ interface Element
     public function __construct( $name, $value = null );
 
     /**
+     * Attach a modifier
+     * @param mixed $modifier
+     */
+    public function attach( $modifier );
+
+    /**
      * Get the name
      * @return string
      */

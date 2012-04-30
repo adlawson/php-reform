@@ -2,7 +2,8 @@
 
 namespace Reform\Element;
 
-use Reform\Attribute\Attributable;
+use Reform\Attribute\Attribute,
+    Reform\Attribute\Attributable;
 
 /**
  * Element
@@ -27,12 +28,6 @@ abstract class ElementAbstract implements Attributable, Element
     protected $attributes;
 
     /**
-     * The decorators
-     * @var SplStack
-     */
-    protected $decorators;
-
-    /**
      * The name
      * @var Reform\Attribute\Attribute
      */
@@ -45,21 +40,29 @@ abstract class ElementAbstract implements Attributable, Element
     protected $value;
 
     /**
+     * Attach a modifier
+     * @param mixed $modifier
+     */
+    public function attach( $modifier )
+    {
+        if ( $modifier instanceof Attribute )
+        {
+            $this->getAttributes()->push( $modifier );
+        }
+    }
+
+    /**
      * Get the attributes
      * @return SplQueue
      */
     public function getAttributes()
     {
-        return $this->attributes ?: new \SplQueue;
-    }
+        if ( ! $this->attributes instanceof \Traversable )
+        {
+            $this->attributes = new \SplQueue;
+        }
 
-    /**
-     * Get the decorators
-     * @return SplStack
-     */
-    public function getDecorators()
-    {
-        return $this->decorators ?: new \SplStack;
+        return $this->attributes;
     }
 
     /**
