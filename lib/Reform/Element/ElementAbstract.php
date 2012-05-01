@@ -3,7 +3,9 @@
 namespace Reform\Element;
 
 use Reform\Attribute\Attribute,
-    Reform\Attribute\Attributable;
+    Reform\Attribute\Attributable,
+    Reform\Renderer\Renderer,
+    Reform\Renderer\Renderable;
 
 /**
  * Element
@@ -12,7 +14,7 @@ use Reform\Attribute\Attribute,
  * @copyright Copyright (c) 2012 Andrew Lawson <http://adlawson.com>
  * @license   New BSD License <LICENSE>
  */
-abstract class ElementAbstract implements Attributable, Element
+abstract class ElementAbstract implements Attributable, Element, Renderable
 {
     /**
      * Atrribute names
@@ -32,6 +34,12 @@ abstract class ElementAbstract implements Attributable, Element
      * @var Reform\Attribute\Attribute
      */
     protected $name;
+
+    /**
+     * The renderer
+     * @var Renderer
+     */
+    protected $renderer;
 
     /**
      * The value
@@ -63,6 +71,15 @@ abstract class ElementAbstract implements Attributable, Element
         }
 
         return $this->attributes;
+    }
+
+    /**
+     * Get the renderer
+     * @return Renderer
+     */
+    public function getRenderer()
+    {
+        return $this->renderer;
     }
 
     /**
@@ -107,6 +124,13 @@ abstract class ElementAbstract implements Attributable, Element
      */
     public function __toString()
     {
-        //return $this->getRenderer()->render( $this );
+        try
+        {
+            return $this->getRenderer()->render( $this );
+        }
+        catch ( \Exception $e )
+        {
+            trigger_error( $e->getMessage(), E_USER_ERROR );
+        }
     }
 }

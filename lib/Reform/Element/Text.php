@@ -2,7 +2,8 @@
 
 namespace Reform\Element;
 
-use Reform\Attribute\String;
+use Reform\Attribute\String,
+    Reform\Renderer\ViewScript;
 
 /**
  * Text element
@@ -22,5 +23,6 @@ class Text extends ElementAbstract
     {
         $this->name  = new String( self::ATTRIBUTE_NAME, $name );
         $this->value = new String( self::ATTRIBUTE_VALUE, $value );
+        $this->renderer = new ViewScript( dirname( dirname( __DIR__ ) ) . '/views/text.phtml' );
     }
 }
