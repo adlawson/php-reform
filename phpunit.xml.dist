@@ -5,11 +5,11 @@
         <testsuites>
 
             <testsuite name="Reform unit test suite">
-                <directory>./tests/unit/Reform/Test/</directory>
+                <directory>./tests/Reform/Test/Unit</directory>
             </testsuite>
 
             <testsuite name="Reform integration test suite">
-                <directory>./tests/integration/Reform/Test/</directory>
+                <directory>./tests/Reform/Test/Integration</directory>
             </testsuite>
 
         </testsuites>
