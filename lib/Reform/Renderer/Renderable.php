@@ -12,6 +12,12 @@ namespace Reform\Renderer;
 interface Renderable
 {
     /**
+     * Get the renderer
+     * @return Renderer
+     */
+    public function getRenderer();
+
+    /**
      * Get the string representation
      * @return string
      */
