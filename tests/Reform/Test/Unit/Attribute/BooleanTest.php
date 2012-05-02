@@ -18,81 +18,33 @@ require_once 'AttributeTestCase.php';
 class BooleanTest extends AttributeTestCase
 {
     /**
-     * Name data provider
-     * @return array
-     */
-    public function nameDataProvider()
-    {
-        return array(
-
-            array( 'name' ),
-            array( 'extra-mega-long-name-with-hyphens' ),
-            array( 1 ),
-            array( null ),
-            array( true ),
-            array( false ),
-            array( '' ),
-            array( array() )
-
-        );
-    }
-
-    /**
-     * Invalid name data provider
-     * @return array
-     */
-    public function invalidNameDataProvider()
-    {
-        return array(
-
-            array( new \stdClass )
-
-        );
-    }
-
-    /**
      * Value data provider
      * @return array
      */
     public function valueDataProvider()
     {
-        return array(
+        return array_merge( parent::valueDataProvider(), array(
 
-            array( 'value' ),
-            array( 'extra-mega-long-value-with-hyphens' ),
-            array( 1 ),
-            array( null ),
-            array( true ),
-            array( false ),
-            array( '' ),
-            array( array() ),
             array( new \stdClass )
 
-        );
+        ));
     }
 
     /**
-     * @covers Reform\Attribute\Boolean::getName
-     * @covers Reform\Attribute\Boolean::setName
-     * @dataProvider nameDataProvider
-     * @param mixed $name
+     * Invalid value data provider
+     * @return array
      */
-    public function testName( $name )
+    public function invalidValueDataProvider()
     {
-        $attribute = new Attribute\Boolean( $name );
-
-        $this->assertSame( (string) $name, $attribute->getName() );
+        return array();
     }
 
     /**
-     * @covers Reform\Attribute\Boolean::setName
-     * @dataProvider invalidNameDataProvider
-     * @expectedException PHPUnit_Framework_Error
-     * @param mixed $name
+     * Setup the test case
      */
-    public function testInvalidName( $name )
+    public function setUp()
     {
-        $attribute = new Attribute\Boolean( $name );
+        $this->setAttributeClass( 'Reform\Attribute\Boolean' );
     }
 
     /**

@@ -4,6 +4,8 @@ namespace Reform\Test\Unit\Renderer;
 
 use Reform\Renderer;
 
+require_once 'RendererTestCase.php';
+
 /**
  * Renderer test case
  * 
@@ -14,8 +16,16 @@ use Reform\Renderer;
  * @covers Reform\Renderer\Renderer
  * @covers Reform\Renderer\ViewScript
  */
-class ViewScriptTest extends \PHPUnit_Framework_TestCase
+class ViewScriptTest extends RendererTestCase
 {
+    /**
+     * Setup the test case
+     */
+    public function setUp()
+    {
+        $this->setRendererClass( 'Reform\Renderer\ViewScript' );
+    }
+
     /**
      * @covers Reform\Renderer\ViewScript::__construct
      * @covers Reform\Renderer\ViewScript::setPath
