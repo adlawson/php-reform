@@ -1,6 +1,6 @@
 <?php
 
-namespace Reform\Test\Attribute;
+namespace Reform\Test\Unit\Attribute;
 
 use Reform\Attribute;
 

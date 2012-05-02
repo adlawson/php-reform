@@ -1,6 +1,6 @@
 <?php
 
-namespace Reform\Test\Element;
+namespace Reform\Test\Unit\Element;
 
 use Reform\Element;
 

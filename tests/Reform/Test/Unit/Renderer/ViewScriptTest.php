@@ -1,6 +1,6 @@
 <?php
 
-namespace Reform\Test\Renderer;
+namespace Reform\Test\Unit\Renderer;
 
 use Reform\Renderer;
 

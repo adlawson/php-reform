@@ -1,6 +1,6 @@
 <?php
 
-namespace Reform\Test\Attribute;
+namespace Reform\Test\Unit\Attribute;
 
 use Reform\Attribute;
 
@@ -13,9 +13,9 @@ require_once 'AttributeTestCase.php';
  * @copyright Copyright (c) 2012 Andrew Lawson <http://adlawson.com>
  * @license   New BSD License <LICENSE>
  * 
- * @covers Reform\Attribute\Integer
+ * @covers Reform\Attribute\Boolean
  */
-class IntegerTest extends AttributeTestCase
+class BooleanTest extends AttributeTestCase
 {
     /**
      * Name data provider
@@ -65,84 +65,74 @@ class IntegerTest extends AttributeTestCase
             array( true ),
             array( false ),
             array( '' ),
-            array( array() )
-
-        );
-    }
-
-    /**
-     * Invalid value data provider
-     * @return array
-     */
-    public function invalidValueDataProvider()
-    {
-        return array(
-
+            array( array() ),
             array( new \stdClass )
 
         );
     }
 
     /**
-     * @covers Reform\Attribute\Integer::getName
-     * @covers Reform\Attribute\Integer::setName
+     * @covers Reform\Attribute\Boolean::getName
+     * @covers Reform\Attribute\Boolean::setName
      * @dataProvider nameDataProvider
      * @param mixed $name
      */
     public function testName( $name )
     {
-        $attribute = new Attribute\Integer( $name );
+        $attribute = new Attribute\Boolean( $name );
 
         $this->assertSame( (string) $name, $attribute->getName() );
     }
 
     /**
-     * @covers Reform\Attribute\Integer::setName
+     * @covers Reform\Attribute\Boolean::setName
      * @dataProvider invalidNameDataProvider
      * @expectedException PHPUnit_Framework_Error
      * @param mixed $name
      */
     public function testInvalidName( $name )
     {
-        $attribute = new Attribute\Integer( $name );
+        $attribute = new Attribute\Boolean( $name );
     }
 
     /**
-     * @covers Reform\Attribute\Integer::getValue
-     * @covers Reform\Attribute\Integer::setValue
+     * @covers Reform\Attribute\Boolean::getValue
+     * @covers Reform\Attribute\Boolean::setValue
      * @dataProvider valueDataProvider
      * @param mixed $value
      */
     public function testValue( $value )
     {
-        $attribute = new Attribute\Integer( 'attribute_name', $value );
+        $attribute = new Attribute\Boolean( 'attribute_name', $value );
 
-        $this->assertSame( (integer) $value, $attribute->getValue() );
+        $this->assertSame( (boolean) $value, $attribute->getValue() );
     }
 
     /**
-     * @covers Reform\Attribute\Integer::setValue
-     * @dataProvider invalidValueDataProvider
-     * @expectedException PHPUnit_Framework_Error
-     * @param mixed $value
+     * @covers Reform\Attribute\Boolean::__toString
      */
-    public function testInvalidValue( $value )
-    {
-        $attribute = new Attribute\Integer( 'attribute_name', $value );
-    }
-
-    /**
-     * @covers Reform\Attribute\Integer::__toString
-     */
-    public function testToString()
+    public function testToString_CaseTrue()
     {
         $name = 'attribute_name';
-        $value = 1;
+        $value = true;
 
-        $attribute = new Attribute\Integer( $name, $value );
+        $attribute = new Attribute\Boolean( $name, $value );
 
         $this->assertTrue( false !== strpos( (string) $attribute, $name ), 'String doesn\'t contain the attribute name.' );
-        $this->assertTrue( false !== strpos( (string) $attribute, (string) $value ), 'String doesn\'t contain the attribute value.' );
-        $this->assertTrue( false === strpos( (string) $attribute, '"' . $value . '"' ), 'String contains the attribute value in quotes.' );
+        $this->assertTrue( false === strpos( (string) $attribute, $value ), 'String contains the attribute value.' );
+    }
+
+    /**
+     * @covers Reform\Attribute\Boolean::__toString
+     */
+    public function testToString_CaseFalse()
+    {
+        $name = 'attribute_name';
+        $value = false;
+
+        $attribute = new Attribute\Boolean( $name, $value );
+
+        $this->assertTrue( false === strpos( (string) $attribute, $name ), 'String contains the attribute name.' );
+        $this->assertTrue( false === strpos( (string) $attribute, $value ), 'String contains the attribute value.' );
     }
 }

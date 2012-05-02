@@ -1,6 +1,6 @@
 <?php
 
-namespace Reform\Test\Attribute;
+namespace Reform\Test\Unit\Attribute;
 
 use Reform\Attribute;
 
@@ -13,9 +13,9 @@ require_once 'AttributeTestCase.php';
  * @copyright Copyright (c) 2012 Andrew Lawson <http://adlawson.com>
  * @license   New BSD License <LICENSE>
  * 
- * @covers Reform\Attribute\String
+ * @covers Reform\Attribute\Float
  */
-class StringTest extends AttributeTestCase
+class FloatTest extends AttributeTestCase
 {
     /**
      * Name data provider
@@ -61,6 +61,7 @@ class StringTest extends AttributeTestCase
             array( 'value' ),
             array( 'extra-mega-long-value-with-hyphens' ),
             array( 1 ),
+            array( 0.5 ),
             array( null ),
             array( true ),
             array( false ),
@@ -84,65 +85,65 @@ class StringTest extends AttributeTestCase
     }
 
     /**
-     * @covers Reform\Attribute\String::getName
-     * @covers Reform\Attribute\String::setName
+     * @covers Reform\Attribute\Float::getName
+     * @covers Reform\Attribute\Float::setName
      * @dataProvider nameDataProvider
      * @param mixed $name
      */
     public function testName( $name )
     {
-        $attribute = new Attribute\String( $name );
+        $attribute = new Attribute\Float( $name );
 
         $this->assertSame( (string) $name, $attribute->getName() );
     }
 
     /**
-     * @covers Reform\Attribute\String::setName
+     * @covers Reform\Attribute\Float::setName
      * @dataProvider invalidNameDataProvider
      * @expectedException PHPUnit_Framework_Error
      * @param mixed $name
      */
     public function testInvalidName( $name )
     {
-        $attribute = new Attribute\String( $name );
+        $attribute = new Attribute\Float( $name );
     }
 
     /**
-     * @covers Reform\Attribute\String::getValue
-     * @covers Reform\Attribute\String::setValue
+     * @covers Reform\Attribute\Float::getValue
+     * @covers Reform\Attribute\Float::setValue
      * @dataProvider valueDataProvider
      * @param mixed $value
      */
     public function testValue( $value )
     {
-        $attribute = new Attribute\String( 'attribute_name', $value );
+        $attribute = new Attribute\Float( 'attribute_name', $value );
 
-        $this->assertSame( (string) $value, $attribute->getValue() );
+        $this->assertSame( (float) $value, $attribute->getValue() );
     }
 
     /**
-     * @covers Reform\Attribute\String::setValue
+     * @covers Reform\Attribute\Float::setValue
      * @dataProvider invalidValueDataProvider
      * @expectedException PHPUnit_Framework_Error
      * @param mixed $value
      */
     public function testInvalidValue( $value )
     {
-        $attribute = new Attribute\String( 'attribute_name', $value );
+        $attribute = new Attribute\Float( 'attribute_name', $value );
     }
 
     /**
-     * @covers Reform\Attribute\String::__toString
+     * @covers Reform\Attribute\Float::__toString
      */
     public function testToString()
     {
         $name = 'attribute_name';
-        $value = 'attribute_value';
+        $value = .5;
 
-        $attribute = new Attribute\String( $name, $value );
+        $attribute = new Attribute\Float( $name, $value );
 
         $this->assertTrue( false !== strpos( (string) $attribute, $name ), 'String doesn\'t contain the attribute name.' );
-        $this->assertTrue( false !== strpos( (string) $attribute, $value ), 'String doesn\'t contain the attribute value.' );
-        $this->assertTrue( false !== strpos( (string) $attribute, '"' . $value . '"' ), 'String doesn\'t contain the attribute value in quotes.' );
+        $this->assertTrue( false !== strpos( (string) $attribute, (string) $value ), 'String doesn\'t contain the attribute value.' );
+        $this->assertTrue( false === strpos( (string) $attribute, '"' . $value . '"' ), 'String contains the attribute value in quotes.' );
     }
 }
