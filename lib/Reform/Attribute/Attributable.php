@@ -13,7 +13,7 @@ interface Attributable
 {
     /**
      * Get the attributes
-     * @return SplQueue
+     * @return Queue
      */
     public function getAttributes();
 }

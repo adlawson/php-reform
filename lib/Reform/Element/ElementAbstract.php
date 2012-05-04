@@ -4,6 +4,7 @@ namespace Reform\Element;
 
 use Reform\Attribute\Attribute,
     Reform\Attribute\Attributable,
+    Reform\Attribute\Queue,
     Reform\Renderer\Renderer,
     Reform\Renderer\Renderable;
 
@@ -25,7 +26,7 @@ abstract class ElementAbstract implements Attributable, Element, Renderable
 
     /**
      * The attributes
-     * @var SplQueue
+     * @var Queue
      */
     protected $attributes;
 
@@ -61,13 +62,13 @@ abstract class ElementAbstract implements Attributable, Element, Renderable
 
     /**
      * Get the attributes
-     * @return SplQueue
+     * @return Queue
      */
     public function getAttributes()
     {
         if ( ! $this->attributes instanceof \Traversable )
         {
-            $this->attributes = new \SplQueue;
+            $this->attributes = new Queue;
         }
 
         return $this->attributes;
