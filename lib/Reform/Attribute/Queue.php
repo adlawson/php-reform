@@ -17,7 +17,7 @@ class Queue extends \SplQueue
      */
     public function push( $attribute )
     {
-        return $attribute instanceof Attribute ? parent::push( $attribute ) : null ;
+        return $attribute instanceof Attribute ? parent::push( $attribute ) : null;
     }
 
     /**
@@ -26,7 +26,7 @@ class Queue extends \SplQueue
      */
     public function unshift( $attribute )
     {
-        return $attribute instanceof Attribute ? parent::unshift( $attribute ) : null ;
+        return $attribute instanceof Attribute ? parent::unshift( $attribute ) : null;
     }
 
     /**
