@@ -48,6 +48,16 @@ class QueueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Reform\Attribute\Queue::push
+     */
+    public function testPush_Invalid()
+    {
+        $this->queue->push( new \stdClass );
+
+        $this->assertCount( 0, $this->queue );
+    }
+
+    /**
      * @covers Reform\Attribute\Queue::unshift
      */
     public function testUnshift()
@@ -56,6 +66,16 @@ class QueueTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount( 1, $this->queue );
         $this->assertSame( $this->attribute, $this->queue->shift() );
+    }
+
+    /**
+     * @covers Reform\Attribute\Queue::unshift
+     */
+    public function testUnshift_Invalid()
+    {
+        $this->queue->unshift( new \stdClass );
+
+        $this->assertCount( 0, $this->queue );
     }
 
     /**

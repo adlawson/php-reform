@@ -12,6 +12,24 @@ namespace Reform\Attribute;
 class Queue extends \SplQueue
 {
     /**
+     * Appends the queue with an attribute
+     * @param Attribute $attribute
+     */
+    public function push( $attribute )
+    {
+        return $attribute instanceof Attribute ? parent::push( $attribute ) : null ;
+    }
+
+    /**
+     * Prepends the queue with an attribute
+     * @param Attribute $attribute
+     */
+    public function unshift( $attribute )
+    {
+        return $attribute instanceof Attribute ? parent::unshift( $attribute ) : null ;
+    }
+
+    /**
      * Get the string representation
      * @return string
      */
