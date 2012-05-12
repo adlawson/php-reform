@@ -13,7 +13,7 @@ developers to create the form views just as they do with any other markup.
 
 ###Core concepts
 
- - Attribute  `DOM element attributes that can be easily attached to elements`
+ - Attribute  `Element attributes that can modify behaviour when rendered`
  - Element    `Represent the parts of a form, from a simple text input to the form itself`
  - Filter     `Modify the element value on set`
  - Validator  `Check the element value and handle error messages`
