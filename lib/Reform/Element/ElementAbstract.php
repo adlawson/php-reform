@@ -2,11 +2,13 @@
 
 namespace Reform\Element;
 
-use Reform\Attribute\Attribute,
+use Reform\Attribute,
     Reform\Attribute\Attributable,
-    Reform\Attribute\Queue,
     Reform\Renderer\Renderer,
-    Reform\Renderer\Renderable;
+    Reform\Renderer\Renderable,
+    Reform\Validator,
+    Reform\Validator\Validatable,
+    Reform\Validator\ValidationException;
 
 /**
  * Element
@@ -15,7 +17,7 @@ use Reform\Attribute\Attribute,
  * @copyright Copyright (c) 2012 Andrew Lawson <http://adlawson.com>
  * @license   New BSD License <LICENSE>
  */
-abstract class ElementAbstract implements Attributable, Element, Renderable
+abstract class ElementAbstract implements Attributable, Element, Renderable, Validatable
 {
     /**
      * Atrribute names
@@ -26,9 +28,21 @@ abstract class ElementAbstract implements Attributable, Element, Renderable
 
     /**
      * The attributes
-     * @var Queue
+     * @var Attribute\Queue
      */
     protected $attributes;
+
+    /**
+     * The validators
+     * @var Validator\Queue
+     */
+    protected $validators;
+
+    /**
+     * The validation exception
+     * @var ValidationException
+     */
+    protected $exception;
 
     /**
      * The name
@@ -54,24 +68,52 @@ abstract class ElementAbstract implements Attributable, Element, Renderable
      */
     public function attach( $modifier )
     {
-        if ( $modifier instanceof Attribute )
+        if ( $modifier instanceof Attribute\Attribute )
         {
             $this->getAttributes()->push( $modifier );
+        }
+
+        if ( $modifier instanceof Validator\Validator )
+        {
+            $this->getValidators()->push( $modifier );
         }
     }
 
     /**
      * Get the attributes
-     * @return Queue
+     * @return Attribute\Queue
      */
     public function getAttributes()
     {
         if ( ! $this->attributes instanceof \Traversable )
         {
-            $this->attributes = new Queue;
+            $this->attributes = new Attribute\Queue;
         }
 
         return $this->attributes;
+    }
+
+    /**
+     * Get the validators
+     * @return Validator\Queue
+     */
+    public function getValidators()
+    {
+        if ( ! $this->validators instanceof \Traversable )
+        {
+            $this->validators = new Validator\Queue;
+        }
+
+        return $this->validators;
+    }
+
+    /**
+     * Get the validation message
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->exception instanceof ValidationException ? $this->exception->getMessage() : null;
     }
 
     /**
@@ -117,6 +159,27 @@ abstract class ElementAbstract implements Attributable, Element, Renderable
     public function setValue( $value )
     {
         $this->value->setValue( $value );
+    }
+
+    /**
+     * Validate the element
+     * @return boolean
+     */
+    public function isValid()
+    {
+        try
+        {
+            $this->getValidators()->validate( $this );
+            $this->exception = null;
+        }
+        catch ( ValidationException $e )
+        {
+            $this->exception = $e;
+
+            return false;
+        }
+
+        return true;
     }
 
     /**

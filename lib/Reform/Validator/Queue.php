@@ -28,4 +28,17 @@ class Queue extends \SplQueue
     {
         return $validator instanceof Validator ? parent::unshift( $validator ) : null;
     }
+
+    /**
+     * Validate the element
+     * @param Validatable $element
+     * @throws ValidationException If the element is not valid
+     */
+    public function validate( Validatable $element )
+    {
+        foreach ( $this as $validator )
+        {
+            $validator->validate( $element );
+        }
+    }
 }

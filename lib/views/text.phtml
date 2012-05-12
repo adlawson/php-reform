@@ -1,3 +1,9 @@
 <?php /* @var $element Reform\Element\Text */ ?>
 
+<?php if ( is_string( $element->getMessage() ) ): ?>
+
+    <p class="error validation"><?php echo $element->getMessage() ?></p>
+
+<?php endif; ?>
+
 <input type="text" name="<?php echo $element->getName() ?>" value="<?php echo $element->getValue() ?>" <?php echo $element->getAttributes() ?>/>

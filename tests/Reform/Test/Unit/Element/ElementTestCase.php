@@ -136,7 +136,7 @@ class ElementTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @covers Reform\Element\ElementAbstract::getRenderer
      */
-    public function testgetRenderer()
+    public function testGetRenderer()
     {
         $class = $this->elementClass;
         $element = new $class( 'element_name' );
@@ -233,5 +233,79 @@ class ElementTestCase extends \PHPUnit_Framework_TestCase
         $element = new $class( 'element_name' );
 
         $this->assertInstanceOf( 'Traversable', $element->getAttributes() );
+    }
+
+    /**
+     * @covers Reform\Element\ElementAbstract::getValidators
+     */
+    public function testGetValidators()
+    {
+        $class = $this->elementClass;
+        $element = new $class( 'element_name' );
+
+        $this->assertInstanceOf( 'Traversable', $element->getValidators() );
+    }
+
+    /**
+     * @covers Reform\Element\ElementAbstract::getMessage
+     */
+    public function testGetMessage_Empty()
+    {
+        $class = $this->elementClass;
+        $element = new $class( 'element_name' );
+
+        $this->assertNull( $element->getMessage() );
+    }
+
+    /**
+     * @covers Reform\Element\ElementAbstract::attach
+     * @covers Reform\Element\ElementAbstract::isValid
+     */
+    public function testIsValid()
+    {
+        $validator = $this->getMock( 'Reform\Validator\Validator' );
+
+        $validator->expects( $this->once() )
+            ->method( 'validate' );
+
+        $class = $this->elementClass;
+        $element = new $class( 'element_name' );
+        $element->attach( $validator );
+
+        $this->assertTrue( $element->isValid() );
+    }
+
+    /**
+     * @covers Reform\Element\ElementAbstract::isValid
+     */
+    public function testIsValid_NoValidators()
+    {
+        $class = $this->elementClass;
+        $element = new $class( 'element_name' );
+
+        $this->assertTrue( $element->isValid() );
+    }
+
+    /**
+     * @covers Reform\Element\ElementAbstract::attach
+     * @covers Reform\Element\ElementAbstract::isValid
+     */
+    public function testIsValid_Invalid()
+    {
+        $exception = $this->getMockBuilder( 'Reform\Validator\ValidationException' )
+            ->setConstructorArgs( array( $this->getMock( 'Reform\Validator\Validator' ) ) )
+            ->getMock();
+
+        $validator = $this->getMock( 'Reform\Validator\Validator' );
+
+        $validator->expects( $this->once() )
+            ->method( 'validate' )
+            ->will( $this->throwException( $exception ) );
+
+        $class = $this->elementClass;
+        $element = new $class( 'element_name' );
+        $element->attach( $validator );
+
+        $this->assertFalse( $element->isValid() );
     }
 }
