@@ -13,7 +13,6 @@ require_once 'ElementTestCase.php';
  * @copyright Copyright (c) 2012 Andrew Lawson <http://adlawson.com>
  * @license   New BSD License <LICENSE>
  * 
- * @covers Reform\Element\Element
  * @covers Reform\Element\Text
  */
 class TextTest extends ElementTestCase
